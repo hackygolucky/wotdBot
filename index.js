@@ -1,13 +1,11 @@
-var irc = require('irc')
-	, schema = require('./schema')
-	, config = require('./config');
+var irc = require('irc');
 
 // Can I remove this? Check to make sure I've required everything properly
-// var config = {
-// 	channels: ["#testingircbots"],
-// 	server: "irc.freenode.net",
-// 	botName: "peeweebot"
-// };
+var config = {
+	channels: ["#testingircbots"],
+	server: "irc.freenode.net",
+	botName: "peeweebot"
+};
 
 // how to set the word of the day in IRC? 
 var set_wotd = "hornswoggle"
