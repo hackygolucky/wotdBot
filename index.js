@@ -1,50 +1,55 @@
 var irc = require('irc');
 
-// Can I remove this? Check to make sure I've required everything properly
 var config = {
-	channels: ["#testingircbots"],
+	channels: ["#inane"],
 	server: "irc.freenode.net",
-	botName: "PeeWeeBot"
+	botName: "peeweebot"
 };
 
-// how to set the word of the day in IRC? 
-var set_wotd = "hornswoggle";
+// SET YOUR "WORD OF THE DAY!"
+// var set_wotd = "look"
+// 	, create_regex = ["/", set_wotd, "/i"]
+// 	, wotd_regex = create_regex.join(""); // = /set_word/i
 
-///////////////////*** This is all fine and tested. 
-// Create the bot name
 var bot = new irc.Client(config.server, config.botName, {
 	channels: config.channels
 });
 
-bot.addListener("connect", function() {
-	bot.say(config.channels, "I know you are but what am I?")
-})
-
-// Listen for joins
 bot.addListener("join", function(channel, who) {
-	// Welcome them in!
-	bot.say(channel, who + "...welcome back!");
-})
-
-// Listen for any message, say to him/her in the room
-bot.addListener("message", function(from, to, text, message) {
-	bot.say(config.channels[0], "Whatchu talkin' bout?");
+	bot.say(channel, who + " I know you are but what am I?");
 })
 
 bot.addListener('error', function(message) {
     console.log('error: ', message);
 });
-///////////////////*** This is all fine and tested. 
 
-var create_regex = ["/", set_wotd, "/i"]
-	, w_o_t_d = create_regex.join("");
+bot.addListener('message', function (from, to, message) {
+    console.log('%s => %s: %s', from, to, message);
 
-bot.addListener("message", function(from, to, text, w_o_t_d) {
-	bot.say(config.channels[0], nick + "You said the Word of the Day!")
-	// search channel for wotd
-	// if wotd found, use 'target' as person to congratulate in ASCII art
-	// 
+    if ( to.match(/^[#&]/) ) {
+        // channel message
+        if ( message.match(/look/)) {
+            bot.say(to, 'You said the Secret Word! ' + from);
+            setTimeout(function () { bot.say(to, "- - ^ - - - - - - - ^ - - - - - - ^ - - - - - - ^ - - - - - - - - ^ - - - - - - ^ - - - -") }, 500);
+            setTimeout(function () { bot.say(to, "- - - - ^ - - - - - - - - - - - - - - - - ^ - - - - - - - - - - - - - - - ^ - - - - - - -") }, 1000);
+            setTimeout(function () { bot.say(to, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ !!!!! A-A-A-A-A-A-A!!!!! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") }, 2500);
+            setTimeout(function () { bot.say(to, "- - ^ - - - - - - - ^ - - - - - - - - - - - - -^- - - - - - - - ^ - - - - - - ^ - - - - -") }, 3000);
+            setTimeout(function () { bot.say(to, "- - - - - - ^ - - - - - - - ^ - - - - - ^ - - - - - - - ^ - - - - - - ^ - - - - - - ^ - -") }, 3500);
+            setTimeout(function () { bot.say(to, " http://youtu.be/AjCUXm4gq5E ") }, 4000);
+        }
+        if ( message.match(/dance!/) ) {
+        		bot.say(to, 'Tequila! Da-dunh-Da-da-dunh-dunh-dunh-dunh...');
+            setTimeout(function () { bot.say(to, "\u0001ACTION dances: :D\\-<\u0001") }, 1000);
+            setTimeout(function () { bot.say(to, "\u0001ACTION dances: :D|-<\u0001")  }, 2000);
+            setTimeout(function () { bot.say(to, "\u0001ACTION dances: :D/-<\u0001")  }, 3000);
+            setTimeout(function () { bot.say(to, "\u0001ACTION dances: :D|-<\u0001")  }, 4000);
+        }
+        // if ( message.match(/peeweebot/)) {
+        // 	bot.say(to + " I know you are but what am I?");
+        // }
+    }
 })
+
 
 // bot.prototype.onMessage = function(message) {
 // 	// on typing setwotd 'word', should set wotd
