@@ -4,18 +4,21 @@ var irc = require('irc');
 var config = {
 	channels: ["#testingircbots"],
 	server: "irc.freenode.net",
-	botName: "peeweebot"
+	botName: "PeeWeeBot"
 };
 
 // how to set the word of the day in IRC? 
-var set_wotd = "hornswoggle"
-
+var set_wotd = "hornswoggle";
 
 ///////////////////*** This is all fine and tested. 
 // Create the bot name
 var bot = new irc.Client(config.server, config.botName, {
 	channels: config.channels
 });
+
+bot.addListener("connect", function() {
+	bot.say(config.channels, "I know you are but what am I?")
+})
 
 // Listen for joins
 bot.addListener("join", function(channel, who) {
@@ -36,8 +39,8 @@ bot.addListener('error', function(message) {
 var create_regex = ["/", set_wotd, "/i"]
 	, w_o_t_d = create_regex.join("");
 
-bot.addListener(w_o_t_d, function(from, to, text, message) {
-	bot.say(config.channels[0], "You said the Word of the Day!")
+bot.addListener("message", function(from, to, text, w_o_t_d) {
+	bot.say(config.channels[0], nick + "You said the Word of the Day!")
 	// search channel for wotd
 	// if wotd found, use 'target' as person to congratulate in ASCII art
 	// 
