@@ -27,8 +27,8 @@ bot.addListener('message', function (from, to, message) {
     console.log('%s => %s: %s', from, to, message);
 
     if ( to.match(/^[#&]/) ) {
-        // channel message
-        if ( message.match(/look/)) {
+        // CHANGE SECRET WORD ON NEXT LINE!
+        if ( message.match(/whiskey/)) {
             bot.say(to, 'You said the Secret Word! ' + from);
             setTimeout(function () { bot.say(to, "- - ^ - - - - - - - ^ - - - - - - ^ - - - - - - ^ - - - - - - - - ^ - - - - - - ^ - - - -") }, 500);
             setTimeout(function () { bot.say(to, "- - - - ^ - - - - - - - - - - - - - - - - ^ - - - - - - - - - - - - - - - ^ - - - - - - -") }, 1000);
@@ -43,10 +43,11 @@ bot.addListener('message', function (from, to, message) {
             setTimeout(function () { bot.say(to, "\u0001ACTION dances: :D|-<\u0001")  }, 2000);
             setTimeout(function () { bot.say(to, "\u0001ACTION dances: :D/-<\u0001")  }, 3000);
             setTimeout(function () { bot.say(to, "\u0001ACTION dances: :D|-<\u0001")  }, 4000);
+            setTimeout(function () { bot.say(to, " http://youtu.be/BodXwAYeTfM ") }, 4000);
         }
-        // if ( message.match(/peeweebot/)) {
-        // 	bot.say(to + " I know you are but what am I?");
-        // }
+        if ( message.match(/shut up/)) {
+        	bot.say(to, " I know you are but what am I?");
+        }
     }
 })
 
